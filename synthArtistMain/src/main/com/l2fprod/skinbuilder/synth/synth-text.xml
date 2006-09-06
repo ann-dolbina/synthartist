@@ -1,0 +1,23 @@
+<style id="TextField" type="region">
+  <states idref="all"/>
+  &commonattr;
+
+	<painter method="background" category="Painter - Background"/>
+	<painter method="border" category="Painter - Border"/>  
+</style>
+
+<style id="TextArea" type="region">
+  <states idref="all"/>
+  &commonattr;
+
+	<painter method="background" category="Painter - Background"/>
+	<painter method="border" category="Painter - Border"/>  
+</style>
+
+<style id="PasswordField" type="region">
+  <states idref="all"/>
+  &commonattr;
+
+	<painter method="background" category="Painter - Background"/>
+	<painter method="border" category="Painter - Border"/>  
+</style>

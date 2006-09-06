@@ -1,0 +1,28 @@
+<style id="Tree" type="region">
+  <states idref="all"/>
+  &commonattr;
+
+  <property name="collapsedIcon" type="java.io.File" category="Icons"/>
+  <property name="expandedIcon" type="java.io.File" category="Icons"/>
+  
+  <property name="drawHorizontalLines" type="boolean" category="Painter"/>
+  <property name="drawVerticalLines" type="boolean" category="Painter"/>
+  
+  <property name="leftChildIndent" type="int" category="Painter"/>
+  <property name="rightChildIndent" type="int" category="Painter"/>
+  
+  <property name="rowHeight" type="int" category="Painter"/>
+
+  <property name="scrollsHorizontallyAndVertically" type="boolean" category="Painter"/>
+	<property name="scrollsOnExpand" type="boolean" category="Painter"/>
+	
+	Tree.padding
+	Tree.rendererUseTreeColors
+	Tree.showsRootHandles
+</style>
+
+<!-- Tree.renderer -->
+
+<!-- Tree.cellEditor -->
+
+<!-- TreeCell -->

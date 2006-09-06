@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry path="src/main" kind="src"/>
+	<classpathentry sourcepath="JUNIT_HOME/junitsrc.zip" path="JUNIT_HOME/junit.jar" kind="var"/>
+	<classpathentry path="lib/forms-1.0.7.jar" kind="lib"/>
+	<classpathentry path="lib/looks-2.0.4.jar" kind="lib"/>
+	<classpathentry path="lib/xom-1.1.jar" kind="lib"/>
+	<classpathentry path="lib/bcel-5.2.jar" kind="lib"/>
+	<classpathentry path="src/patch" kind="src"/>
+	<classpathentry path="src/tests" kind="src"/>
+	<classpathentry path="lib/l2fprod-common-all.jar" kind="lib"/>
+	<classpathentry path="lib/l2fprod-common-sandbox.jar" kind="lib"/>
+	<classpathentry path="org.eclipse.jdt.launching.JRE_CONTAINER" kind="con"/>
+	<classpathentry path="eclipseclasses/" kind="output"/>
+</classpath>

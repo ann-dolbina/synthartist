@@ -1,0 +1,44 @@
+<style id="InternalFrame" type="region">
+  <states idref="basic"/>
+  &commonattr;
+  
+	<painter method="background" category="Painter - Background"/>
+	<painter method="border" category="Painter - Border"/>
+  
+  <property name="icon" type="java.io.File"/>
+  <property name="useTaskBar" type="java.lang.Boolean" label="Use Task Bar"/>
+</style>
+
+<style id="InternalFrameTitlePane" type="region">
+  <state name="ENABLED"/>
+  <state name="SELECTED"/>
+  <state name="DISABLED"/>
+  &commonattr;
+
+	<painter method="background" category="Painter"/>
+
+  <property name="maximizeIcon" type="java.io.File" label="Maximize Icon" category="Icons"/>
+  <property name="minimizeIcon" type="java.io.File" label="Minimize Icon" category="Icons"/>
+	<property name="iconifyIcon" type="java.io.File" label="Iconify Icon" category="Icons"/>
+	<property name="closeIcon" type="java.io.File" label="Close Icon" category="Icons"/>
+</style>
+
+<style id="InternalFrameTitlePane.closeButton" type="name" region="Button">
+  <states idref="all"/>
+  <property name="icon" type="java.io.File" label="Icon"/>
+</style>
+
+<style id="InternalFrameTitlePane.iconifyButton" type="name" region="Button">
+  <states idref="all"/>
+  <property name="icon" type="java.io.File" label="Icon"/>
+</style>
+
+<style id="InternalFrameTitlePane.maximizeButton" type="name" region="Button">
+  <states idref="all"/>
+  <property name="icon" type="java.io.File" label="Icon"/>
+</style>
+
+<style id="InternalFrameTitlePane.menuButton" type="name" region="Button">
+  <states idref="all"/>
+  <property name="icon" type="java.io.File" label="Icon"/>
+</style>

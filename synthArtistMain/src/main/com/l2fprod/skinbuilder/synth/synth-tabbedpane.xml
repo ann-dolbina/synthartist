@@ -1,0 +1,36 @@
+<style id="TabbedPane" type="region" region="TabbedPane">
+  <state name="ENABLED"/>
+  &commonattr;
+
+  <property name="tabRunOverlay" type="int"/>
+  <property name="textIconGap" type="int"/>
+  <property name="selectedTabPadInsets" type="insets"/>
+  <property name="selectionFollowsFocus" type="boolean"/>
+</style>
+
+<style id="TabbedPaneTabArea" type="region" region="TabbedPaneTab">
+  <state name="ENABLED"/>
+
+	<painter method="background" category="Painter - Background"/>
+	<painter method="border" category="Painter - Border"/>
+</style>
+
+<style id="TabbedPaneTab" type="region" region="TabbedPaneTab">
+  <state name="ENABLED"/>
+  <state name="ENABLED SELECTED"/>
+  <state name="ENABLED SELECTED FOCUSED"/>
+  <state name="ENABLED MOUSE_OVER"/>
+  <state name="ENABLED MOUSE_OVER FOCUSED"/>
+  <state name="DISABLED"/>
+  &commonattr;
+
+	<painter method="background" category="Painter - Background"/>
+	<painter method="border" category="Painter - Border"/>
+</style>
+
+<style id="TabbedPaneContent" type="region" region="TabbedPaneTab">
+  <state name="ENABLED"/>
+
+	<painter method="background" category="Painter - Background"/>
+	<painter method="border" category="Painter - Border"/>
+</style>

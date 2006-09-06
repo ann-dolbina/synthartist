@@ -1,0 +1,8 @@
+<style id="ProgressBar" type="region">
+  <states idref="all"/>
+  &commonattr;
+  
+	<painter method="background" category="Painter - Background"/>
+	<painter method="border" category="Painter - Border"/>
+	<painter method="foreground" category="Painter - Foreground"/>
+</style>

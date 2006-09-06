@@ -1,0 +1,19 @@
+<!-- ScrollBar -->
+
+<!-- ScrollBar Button -->
+<style id="ScrollBar.button" type="name">
+  <states idref="all"/>
+  &commonattr;
+
+	<painter method="background" category="Painter - Background"/>
+	<painter method="border" category="Painter - Border"/>
+
+	<property name="textShiftOffset" type="int" category="General"/>
+	<property name="rolloverEnabled" type="boolean" label="Rollover Enabled"/>
+	<property name="contentAreaFilled" type="boolean" label="Content Area Filled"/>
+	<property name="margin" type="java.awt.Insets" label="Margin"/>
+	<property name="iconTextGap" type="int" label="Icon Text Gap"/>
+	<property name="icon" type="java.io.File" label="Icon" category="Painter"/>
+
+  <property name="size" type="int" default="16" category="General"/>
+</style>

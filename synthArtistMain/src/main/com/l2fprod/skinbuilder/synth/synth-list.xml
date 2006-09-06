@@ -1,0 +1,24 @@
+<style id="List" type="region">
+  <state name="ENABLED"/>
+  &commonattr;
+  
+  <painter method="background" category="Background"/>
+  <painter name="border" category="Border"/>
+  
+  <property name="selectionBackground" type="color"/>
+  <property name="selectionForeground" type="color"/>
+
+	<property name="rendererUseListColors" type="boolean"/>
+	<property name="rendererUseUIBorder" type="boolean"/>
+	
+	<property name="cellHeight" type="int"/>
+
+</style>
+<!-- list cell states
+ENABLED
+DISABLED
+SELECTED
+SELECTED FOCUSED
+ENABLED FOCUSED 
+DISABLED FOCUSED 
+-->

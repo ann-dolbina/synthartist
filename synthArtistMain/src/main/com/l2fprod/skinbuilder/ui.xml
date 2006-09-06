@@ -1,0 +1,44 @@
+<ui>
+
+  <menubar id="default">
+    <menu-ref idref="file"/>
+  </menubar>
+  
+  <menu id="file"
+        text="${com.l2fprod.skinbuilder.MainRB:file}"
+        mnemonic="${com.l2fprod.skinbuilder.MainRB:file.mnemonic}">
+    <action-ref idref="file.save"/>
+    <action-ref idref="file.buildstyle"/>
+    <separator/>
+    <action-ref idref="exit"/>
+  </menu>
+
+  <toolbar id="default">
+    <action-ref idref="file.save"/>
+    <action-ref idref="file.buildstyle"/>
+  </toolbar>
+
+  <statusbar id="default">
+    <statusbaritem id="message" classname="javax.swing.JLabel" constraint="66%"/>
+  </statusbar>
+
+  <action id="file.save"
+          command="com.l2fprod.skinbuilder.cmd.SaveCmd"
+          text="${com.l2fprod.skinbuilder.MainRB:file.save}"
+          mnemonic="${com.l2fprod.skinbuilder.MainRB:file.save.mnemonic}"
+          icon="/com/l2fprod/skinbuilder/icons/save_16.png"/>
+
+  <action id="file.buildstyle"
+          command="com.l2fprod.skinbuilder.cmd.BuildStyleCmd"
+          text="${com.l2fprod.skinbuilder.MainRB:file.buildstyle}"
+          mnemonic="${com.l2fprod.skinbuilder.MainRB:file.buildstyle.mnemonic}"
+          icon="/com/l2fprod/skinbuilder/icons/wizard_16.png"/>
+         
+  <action id="exit"
+          command="com.l2fprod.common.application.ExitCmd"
+          text="${com.l2fprod.skinbuilder.MainRB:file.exit}"
+          mnemonic="${com.l2fprod.skinbuilder.MainRB:file.exit.mnemonic}"
+          accelerator="alt F4"
+          icon="/com/l2fprod/skinbuilder/icons/exit_16.png"/>
+  
+</ui>

@@ -1,0 +1,5 @@
+<!-- Menu -->
+<style id="Menu" type="region">
+  <states idref="all"/>
+  &commonattr;
+</style>

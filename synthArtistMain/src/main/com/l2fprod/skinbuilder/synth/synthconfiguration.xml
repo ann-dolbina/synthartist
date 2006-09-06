@@ -1,0 +1,166 @@
+<!DOCTYPE config [
+  <!ENTITY commonattr       PUBLIC "synth-commonattr.xml" "">
+  <!ENTITY synth-buttons    PUBLIC "synth-buttons.xml" "">
+  <!ENTITY synth-list       PUBLIC "synth-list.xml" "">
+  <!ENTITY synth-menu       PUBLIC "synth-menu.xml" "">
+  <!ENTITY synth-progress   PUBLIC "synth-progress.xml" "">
+  <!ENTITY synth-scrollbar  PUBLIC "synth-scrollbar.xml" "">
+  <!ENTITY synth-table      PUBLIC "synth-table.xml" "">
+  <!ENTITY synth-tabbedpane PUBLIC "synth-tabbedpane.xml" "">
+  <!ENTITY synth-text       PUBLIC "synth-text.xml" "">
+  <!ENTITY synth-tree       PUBLIC "synth-tree.xml" "">
+  <!ENTITY synth-window     PUBLIC "synth-window.xml" "">
+]>
+<config>
+  <!-- structure of the tree on the left -->
+  <tree>
+    <node type="named" label="Buttons">
+      <node type="component" region="Button" label="Regular Button"/>
+      <node type="component" region="ToggleButton" label="Toggle Button"/>
+      <node type="component" region="RadioButton" label="Radio Button"/>
+      <node type="component" region="CheckBox" label="Checkbox"/>
+    </node>
+
+    <node type="named" label="Menus">
+      <node type="component" region="Menu" label="Menu"/>
+      <node type="component" region="MenuItem" label="Menu Item"/>
+    </node>
+
+    <node type="named" label="Window">
+      <node type="component" region="InternalFrame" label="General"/>      
+      <node type="component" region="InternalFrameTitlePane" label="Title Pane"/>
+      <node type="component" region="InternalFrameTitlePane.iconifyButton" label="Iconify Button"/>
+      <node type="component" region="InternalFrameTitlePane.maximizeButton" label="Maximize Button"/>
+      <node type="component" region="InternalFrameTitlePane.closeButton" label="Close Button"/>
+    </node>
+    
+    <node type="component" region="List" label="List"/>
+    <node type="component" region="TableHeader" label="Table Header"/>
+    
+    <node type="component" region="ProgressBar" label="Progress Bar"/>
+    
+    <node type="named" label="Text">
+      <node type="component" region="TextField" label="Text Field"/>
+      <node type="component" region="TextArea" label="Text Area"/>
+      <node type="component" region="PasswordField" label="Password Field"/>
+    </node>
+
+    <node type="component" region="Tree" label="Tree"/>
+
+	  <node type="named" label="Table">
+      <node type="component" region="Table" label="Table"/>
+      <node type="component" region="TableHeader.renderer" label="Table Header"/>
+      <node type="component" region="TableHeader.renderer" label="Table Cell"/>
+    </node>
+
+    <node type="named" label="Tabs">
+      <node type="component" region="TabbedPane" label="TabbedPane"/>
+      <node type="component" region="TabbedPaneTabArea" label="TabbedPane Tab Area"/>
+      <node type="component" region="TabbedPaneTab" label="TabbedPane Tab"/>
+      <node type="component" region="TabbedPaneContent" label="TabbedPane Tab Content"/>
+    </node>
+        
+<!--
+      <node type="component" region="CheckBoxMenuItem" label="Checkbox Menu Item"/>
+
+    <node type="named" label="Scrollbars">
+      <node type="component" region="ArrowButton" label="Arrow Button"/>
+    </node>
+
+    <node type="named" label="Texts">
+      <node type="component" region="EditorPane" label="Editor Pane"/>
+FormattedTextField
+    </node>
+
+    <node type="named" label="Others">
+      <node type="component" region="ComboBox" label="Combobox"/>
+    </node>
+-->
+
+Label
+Menu
+MenuBar
+MenuItem
+MenuItemAccelerator
+OptionPane
+Panel
+PopupMenu
+PopupMenuSeparator
+RadioButtonMenuItem
+RootPane
+ScrollBar
+ScrollBarTrack
+ScrollBarThumb
+ScrollPane
+Separator
+Slider
+SliderTrack
+SliderThumb
+Spinner
+SplitPane
+SplitPaneDivider
+TabbedPane
+TabbedPaneTab
+TabbedPaneTabArea
+TabbedPaneContent
+Table
+TextArea
+TextPane
+ToolBar
+ToolBarContent
+ToolBarDragWindow
+ToolTip
+ToolBarSeparator
+Tree
+TreeCell
+Viewport
+
+  </tree>
+  
+  <!-- Available states
+	  ENABLED
+	  DISABLED
+	  PRESSED
+	  MOUSE_OVER
+	  SELECTED
+	  FOCUSED
+	  DEFAULT
+	  -->
+  <states id="all">
+    <state name="ENABLED"/>
+    <state name="MOUSE_OVER"/>
+    <state name="MOUSE_OVER PRESSED"/>
+    <state name="MOUSE_OVER SELECTED"/>
+    <state name="MOUSE_OVER FOCUSED"/>
+    <state name="PRESSED"/>
+    <state name="SELECTED"/>
+    <state name="FOCUSED"/>
+    <state name="DISABLED"/>
+    <state name="DISABLED PRESSED"/>
+    <state name="DISABLED SELECTED"/>
+  </states>
+  
+  <states id="basic">
+    <state name="ENABLED"/>
+    <state name="DISABLED"/>
+  </states>
+  
+  &synth-buttons;
+  &synth-list;
+  &synth-menu;
+  &synth-progress;
+  &synth-scrollbar;
+  &synth-tabbedpane;
+  &synth-table;
+  &synth-tree;
+  &synth-text;
+  &synth-window;
+  
+  <!-- for each region what is available
+  <region id="RADIO_BUTTON" availableStates="all"/>
+  <region id="PANEL" availableStates="primary"/>
+  <component class="JCheckBox">
+    <states idref="all"/>
+  </component>
+   -->
+</config>

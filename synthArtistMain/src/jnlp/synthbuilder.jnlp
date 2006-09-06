@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp codebase="http://www.L2FProd.com/misc/"
+      href="synthbuilder.jnlp">
+  <information>
+    <title>SynthBuilder</title>
+    <vendor>L2FProd.com</vendor>
+  </information>
+  <security> 
+    <all-permissions/> 
+  </security> 
+  <resources>
+    <j2se version="1.5+"/>
+    <jar href="synthbuilder.jar"/>
+  </resources>
+  <application-desc main-class="com.l2fprod.skinbuilder.Main">
+  </application-desc>
+</jnlp>

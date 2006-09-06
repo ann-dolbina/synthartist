@@ -1,0 +1,9 @@
+    <property name="BACKGROUND" type="java.awt.Color" label="Background" category="General"/>
+    <property name="FOREGROUND" type="java.awt.Color" label="Foreground" category="General"/>
+    <property name="opaque" type="java.lang.Boolean" label="Opaque" category="General"/>
+    <property name="TEXT_BACKGROUND" type="java.awt.Color" 
+      label="Text Background" category="General"/>
+    <property name="TEXT_FOREGROUND" type="java.awt.Color" 
+      label="Text Foreground" category="General"/>
+    <property name="font" type="java.awt.Font" label="Font" category="General" />
+    <property name="insets" type="java.awt.Insets" label="Insets" category="General"/>
