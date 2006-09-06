@@ -17,6 +17,8 @@
  */
 package com.l2fprod.skinbuilder.cmd;
 
+import java.awt.KeyboardFocusManager;
+
 import com.l2fprod.common.application.core.Command;
 import com.l2fprod.common.application.core.CommandContext;
 import com.l2fprod.common.swing.BaseDialog;
@@ -25,42 +27,39 @@ import com.l2fprod.skinbuilder.Main;
 import com.l2fprod.skinbuilder.synth.SynthConfig;
 import com.l2fprod.skinbuilder.synth.SynthJarBuilder;
 
-import java.awt.KeyboardFocusManager;
-
 /**
  * BuildStyleCmd. <br>
  * 
  */
-public class BuildStyleCmd implements Command {
+public class BuildStyleCmd implements Command
+{
 
-  public void execute(CommandContext context) {
-    BaseDialog dialog = BaseDialog.newBaseDialog(KeyboardFocusManager
-      .getCurrentKeyboardFocusManager().getActiveWindow());
-    dialog.setModal(true);
-    dialog.setTitle(ResourceManager.get(Main.class)
-      .getString("file.buildstyle"));
-    dialog.getBanner().setTitle(
-      ResourceManager.get(Main.class).getString("file.buildstyle"));
+    public void execute(CommandContext context) {
+        BaseDialog dialog = BaseDialog.newBaseDialog(KeyboardFocusManager.getCurrentKeyboardFocusManager()
+                .getActiveWindow());
+        dialog.setModal(true);
+        dialog.setTitle(ResourceManager.get(Main.class).getString("file.buildstyle"));
+        dialog.getBanner().setTitle(ResourceManager.get(Main.class).getString("file.buildstyle"));
 
-    BuildStylePanel panel = new BuildStylePanel();
-    dialog.getContentPane().add("Center", panel);
+        BuildStylePanel panel = new BuildStylePanel();
+        dialog.getContentPane().add("Center", panel);
 
-    dialog.pack();
-    dialog.setLocationRelativeTo(null);
+        dialog.pack();
+        dialog.setLocationRelativeTo(null);
 
-    if (dialog.ask()) {
-      SynthConfig config = (SynthConfig)context.getService(SynthConfig.class);
-      try {
-        SynthJarBuilder writer = new SynthJarBuilder(config);
-        writer.setJarPath(panel.getJarFile());
-        writer.setClassName(panel.getClassname());
-        // new File("E:\\projects\\synthbuilder\\synthtest.jar"));
-        // writer.setClassName("com.l2fprod.styles.simple.Dummy");
-        writer.write();
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
+        if (dialog.ask()) {
+            SynthConfig config = (SynthConfig) context.getService(SynthConfig.class);
+            try {
+                SynthJarBuilder writer = new SynthJarBuilder(config);
+                writer.setJarPath(panel.getJarFile());
+                writer.setClassName(panel.getClassname());
+                // new File("E:\\projects\\synthbuilder\\synthtest.jar"));
+                // writer.setClassName("com.l2fprod.styles.simple.Dummy");
+                writer.write();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
-  }
 
 }

@@ -17,11 +17,6 @@
  */
 package com.l2fprod.skinbuilder.editor;
 
-import com.l2fprod.common.beans.editor.AbstractPropertyEditor;
-import com.l2fprod.common.beans.editor.FixedButton;
-import com.l2fprod.common.swing.LookAndFeelTweaks;
-import com.l2fprod.common.util.converter.ConverterRegistry;
-
 import java.awt.BorderLayout;
 import java.awt.Image;
 import java.awt.Insets;
@@ -33,85 +28,90 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import com.l2fprod.common.beans.editor.AbstractPropertyEditor;
+import com.l2fprod.common.beans.editor.FixedButton;
+import com.l2fprod.common.swing.LookAndFeelTweaks;
+import com.l2fprod.common.util.converter.ConverterRegistry;
+
 /**
  * VisualInsetsPropertyEditor. <br>
  * 
  */
-public class VisualInsetsPropertyEditor extends AbstractPropertyEditor {
+public class VisualInsetsPropertyEditor extends AbstractPropertyEditor
+{
 
-  private JTextField textfield;
-  private Image image;
+    private JTextField textfield;
+    private Image      image;
 
-  private JButton button;
+    private JButton    button;
 
-  private Insets insets;
+    private Insets     insets;
 
-  public VisualInsetsPropertyEditor() {
-    editor = new JPanel(new BorderLayout(0, 0));
+    public VisualInsetsPropertyEditor() {
+        editor = new JPanel(new BorderLayout(0, 0));
 
-    textfield = new JTextField();
-    textfield.setBorder(LookAndFeelTweaks.EMPTY_BORDER);
-    ((JPanel)editor).add("Center", textfield);
+        textfield = new JTextField();
+        textfield.setBorder(LookAndFeelTweaks.EMPTY_BORDER);
+        ((JPanel) editor).add("Center", textfield);
 
-    ((JPanel)editor).add("East", button = new FixedButton());
-    button.addActionListener(new ActionListener() {
+        ((JPanel) editor).add("East", button = new FixedButton());
+        button.addActionListener(new ActionListener() {
 
-      public void actionPerformed(ActionEvent e) {
-        makeInsets();
-      }
-    });
-    ((JPanel)editor).setOpaque(false);
+            public void actionPerformed(ActionEvent e) {
+                makeInsets();
+            }
+        });
+        ((JPanel) editor).setOpaque(false);
 
-    image = new ImageIcon(VisualInsetsPropertyEditor.class
-      .getResource("defaultinsets.png")).getImage();
-  }
-
-  @Override
-public Object getValue() {
-    String text = textfield.getText();
-    if (text == null || text.trim().length() == 0) {
-      return null;
-    } else {
-      try {
-        return convertFromString(text.trim());
-      } catch (Exception e) {
-        /* UIManager.getLookAndFeel().provideErrorFeedback(editor); */
-        return insets;
-      }
+        image = new ImageIcon(VisualInsetsPropertyEditor.class.getResource("defaultinsets.png")).getImage();
     }
-  }
 
-  @Override
-public void setValue(Object value) {
-    if (value == null) {
-      insets = null;
-      textfield.setText("");
-    } else {
-      insets = (Insets)value;
-      textfield.setText(convertToString(value));
+    @Override
+    public Object getValue() {
+        String text = textfield.getText();
+        if (text == null || text.trim().length() == 0) {
+            return null;
+        } else {
+            try {
+                return convertFromString(text.trim());
+            } catch (Exception e) {
+                /* UIManager.getLookAndFeel().provideErrorFeedback(editor); */
+                return insets;
+            }
+        }
     }
-  }
 
-  protected Object convertFromString(String text) {
-    return ConverterRegistry.instance().convert(Insets.class, text);
-  }
-
-  protected String convertToString(Object value) {
-    return (String)ConverterRegistry.instance().convert(String.class, value);
-  }
-
-  protected void makeInsets() {
-    Insets newInsets = BorderEditorDialog.showDialog(insets, image);
-    if (newInsets != null) {
-      Insets oldInsets = insets;
-      textfield.setText(convertToString(newInsets));
-      insets = newInsets;
-      firePropertyChange(oldInsets, newInsets);
+    @Override
+    public void setValue(Object value) {
+        if (value == null) {
+            insets = null;
+            textfield.setText("");
+        } else {
+            insets = (Insets) value;
+            textfield.setText(convertToString(value));
+        }
     }
-  }
 
-  public void setImage(Image image) {
-    this.image = image;
-  }
+    protected Object convertFromString(String text) {
+        return ConverterRegistry.instance().convert(Insets.class, text);
+    }
+
+    protected String convertToString(Object value) {
+        return (String) ConverterRegistry.instance().convert(String.class, value);
+    }
+
+    protected void makeInsets() {
+        Insets newInsets = BorderEditorDialog.showDialog(insets, image);
+        if (newInsets != null) {
+            Insets oldInsets = insets;
+            textfield.setText(convertToString(newInsets));
+            insets = newInsets;
+            firePropertyChange(oldInsets, newInsets);
+        }
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
 
 }

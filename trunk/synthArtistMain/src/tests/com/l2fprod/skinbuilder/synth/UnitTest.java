@@ -55,31 +55,31 @@ import junit.framework.TestCase;
  * UnitTest. <br>
  * 
  */
-public class UnitTest extends TestCase {
+public class UnitTest extends TestCase
+{
 
-  public UnitTest(String arg0) {
-    super(arg0);
-  }
+    public UnitTest(String arg0) {
+        super(arg0);
+    }
 
-  public void testStateToString() {
-    int state = SynthConstants.ENABLED;
-    assertEquals("ENABLED", LiveSynthStyleFactory.stateToString(state));
+    public void testStateToString() {
+        int state = SynthConstants.ENABLED;
+        assertEquals("ENABLED", LiveSynthStyleFactory.stateToString(state));
 
-    state |= SynthConstants.PRESSED;
-    assertEquals("ENABLED PRESSED", LiveSynthStyleFactory.stateToString(state));
+        state |= SynthConstants.PRESSED;
+        assertEquals("ENABLED PRESSED", LiveSynthStyleFactory.stateToString(state));
 
-    state ^= SynthConstants.ENABLED;
-    assertEquals("PRESSED", LiveSynthStyleFactory.stateToString(state));
+        state ^= SynthConstants.ENABLED;
+        assertEquals("PRESSED", LiveSynthStyleFactory.stateToString(state));
 
-    state |= SynthConstants.ENABLED;
-    state |= SynthConstants.DISABLED;
-    state |= SynthConstants.PRESSED;
-    state |= SynthConstants.MOUSE_OVER;
-    state |= SynthConstants.SELECTED;
-    state |= SynthConstants.FOCUSED;
-    state |= SynthConstants.DEFAULT;
-    assertEquals(
-      "ENABLED DISABLED PRESSED MOUSE_OVER SELECTED FOCUSED DEFAULT",
-      LiveSynthStyleFactory.stateToString(state));
-  }
+        state |= SynthConstants.ENABLED;
+        state |= SynthConstants.DISABLED;
+        state |= SynthConstants.PRESSED;
+        state |= SynthConstants.MOUSE_OVER;
+        state |= SynthConstants.SELECTED;
+        state |= SynthConstants.FOCUSED;
+        state |= SynthConstants.DEFAULT;
+        assertEquals("ENABLED DISABLED PRESSED MOUSE_OVER SELECTED FOCUSED DEFAULT", LiveSynthStyleFactory
+                .stateToString(state));
+    }
 }

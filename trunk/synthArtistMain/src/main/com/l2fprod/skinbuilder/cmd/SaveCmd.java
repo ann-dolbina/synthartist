@@ -17,6 +17,11 @@
  */
 package com.l2fprod.skinbuilder.cmd;
 
+import java.awt.KeyboardFocusManager;
+import java.io.File;
+
+import javax.swing.JFileChooser;
+
 import com.l2fprod.common.application.core.Command;
 import com.l2fprod.common.application.core.CommandContext;
 import com.l2fprod.common.swing.UserPreferences;
@@ -24,34 +29,27 @@ import com.l2fprod.common.util.SaveFailureException;
 import com.l2fprod.skinbuilder.synth.SynthConfig;
 import com.l2fprod.skinbuilder.synth.SynthConfigPersistence;
 
-import java.awt.KeyboardFocusManager;
-import java.io.File;
-
-import javax.swing.JFileChooser;
-
 /**
  * Saves the current Synth configuration.<br>
  * 
  */
-public class SaveCmd implements Command {
+public class SaveCmd implements Command
+{
 
-  public void execute(CommandContext context) {
-    JFileChooser chooser = UserPreferences.getFileChooser(SaveCmd.class
-      .getName());
-    chooser.setSelectedFile(new File(chooser.getCurrentDirectory(),
-      "theme.sbt"));
+    public void execute(CommandContext context) {
+        JFileChooser chooser = UserPreferences.getFileChooser(SaveCmd.class.getName());
+        chooser.setSelectedFile(new File(chooser.getCurrentDirectory(), "theme.sbt"));
 
-    if (chooser.showSaveDialog(KeyboardFocusManager
-      .getCurrentKeyboardFocusManager().getActiveWindow()) == JFileChooser.APPROVE_OPTION) {
-      File saveTo = chooser.getSelectedFile();
-      SynthConfig config = (SynthConfig)context.getService(SynthConfig.class);
-      SynthConfigPersistence storage = new SynthConfigPersistence();
-      try {
-        storage.save(config, saveTo);
-      } catch (SaveFailureException e) {
-        e.printStackTrace();
-      }
+        if (chooser.showSaveDialog(KeyboardFocusManager.getCurrentKeyboardFocusManager().getActiveWindow()) == JFileChooser.APPROVE_OPTION) {
+            File saveTo = chooser.getSelectedFile();
+            SynthConfig config = (SynthConfig) context.getService(SynthConfig.class);
+            SynthConfigPersistence storage = new SynthConfigPersistence();
+            try {
+                storage.save(config, saveTo);
+            } catch (SaveFailureException e) {
+                e.printStackTrace();
+            }
+        }
     }
-  }
 
 }
