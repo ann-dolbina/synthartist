@@ -1,0 +1,29 @@
+<style id="Table" type="region">
+  <state name="ENABLED"/>
+  <state name="ENABLED SELECTED"/>
+  &commonattr;
+
+  <property name="gridColor" type="color"/>
+  <property name="rowHeight" type="int"/>
+
+	<property name="rendererUseTableColors" type="boolean"/>
+	<property name="rendererUseUIBorder" type="boolean"/>
+</style>
+
+<style id="Table.cellRenderer" type="name" region="label">
+  <state name="ENABLED"/>
+  &commonattr;
+
+
+	<painter method="background" category="Painter - Background"/>
+	<painter method="border" category="Painter - Border"/>
+</style>
+
+<style id="TableHeader.renderer" type="name" region="label">
+  <state name="ENABLED"/>
+  &commonattr;
+
+
+	<painter method="background" category="Painter - Background"/>
+	<painter method="border" category="Painter - Border"/>
+</style>

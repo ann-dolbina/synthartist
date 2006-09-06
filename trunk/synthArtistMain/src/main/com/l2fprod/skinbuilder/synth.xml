@@ -1,0 +1,15 @@
+<synth version="1">
+  <style id="checkbox">
+    <opaque value="true"/>
+    <insets top="4" left="4" bottom="4" right="4"/>
+    <font name="Tahoma" size="8"/>
+    <imageIcon id="icon-normal" path="images/check-out.png"/>
+    <property key="CheckBox.icon" value="icon-normal"/>
+    <state value="SELECTED">
+      <imageIcon id="icon-selected" path="images/check-in.png"/>
+      <property key="CheckBox.icon" value="icon-selected"/>      
+    </state>
+  </style>
+    
+  <bind style="checkbox" type="region" key="checkbox"/>
+</synth>

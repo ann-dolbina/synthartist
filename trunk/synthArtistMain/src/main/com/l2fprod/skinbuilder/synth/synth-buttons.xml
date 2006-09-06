@@ -1,0 +1,67 @@
+<!-- Button -->
+<style id="Button" type="region">
+  <states idref="all"/>
+  &commonattr;
+
+	<painter method="background" category="Painter"/>
+    
+	<property name="textShiftOffset" type="int" category="General"/>
+	<property name="rolloverEnabled" type="boolean" label="Rollover Enabled"/>
+	<property name="contentAreaFilled" type="boolean" label="Content Area Filled"/>
+	<property name="margin" type="java.awt.Insets" label="Margin"/>
+	<property name="iconTextGap" type="int" label="Icon Text Gap"/>
+	<property name="icon" type="java.io.File" label="Icon" category="Painter"/>
+</style>
+
+<!-- ToggleButton -->
+<style id="ToggleButton" type="region">
+  <states idref="all"/>
+  &commonattr;
+
+	<painter method="background" category="Painter"/>
+
+	<property name="textShiftOffset" type="int" label="Text Shift Offset" category="General"/>
+	<property name="rolloverEnabled" type="boolean" label="Rollover Enabled"/>
+	<property name="contentAreaFilled" type="boolean" label="Content Area Filled"/>
+	<property name="margin" type="java.awt.Insets" label="Margin"/>
+	<property name="iconTextGap" type="int" label="Icon Text Gap"/>
+	<property name="icon" type="java.io.File" label="Icon" category="Painter"/>
+</style>
+
+<!-- Button -->
+<style id="CheckBox" type="region">
+  <states idref="all"/>
+  &commonattr;
+
+	<painter method="background" category="Painter"/>
+
+	<property name="textShiftOffset" type="int" label="Text Shift Offset" category="General"/>
+	<property name="rolloverEnabled" type="boolean" label="Rollover Enabled"/>
+	<property name="contentAreaFilled" type="boolean" label="Content Area Filled"/>
+	<property name="margin" type="java.awt.Insets" label="Margin"/>
+	<property name="iconTextGap" type="int" label="Icon Text Gap"/>
+	<property name="icon" type="java.io.File" label="Icon" category="Painter"/>
+</style>
+
+<!-- RadioButton -->
+<style id="RadioButton" type="region">
+  <states idref="all"/>
+  &commonattr;
+
+	<painter method="background" category="Painter"/>
+
+	<property name="textShiftOffset" type="int" label="Text Shift Offset" category="General"/>
+	<property name="rolloverEnabled" type="boolean" label="Rollover Enabled"/>
+	<property name="contentAreaFilled" type="boolean" label="Content Area Filled"/>
+	<property name="margin" type="java.awt.Insets" label="Margin"/>
+	<property name="iconTextGap" type="int" label="Icon Text Gap"/>
+	
+	<property name="icon" type="java.io.File" label="Icon" category="Painter"/>
+</style>
+
+<style id="ArrowButton" type="region">
+  <states idref="all"/>
+  &commonattr;
+
+  <property name="size" type="int" default="16" category="General"/>
+</style>
