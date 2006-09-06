@@ -17,17 +17,7 @@
  */
 package com.l2fprod.skinbuilder.editor;
 
-import com.l2fprod.common.swing.BaseDialog;
-import com.l2fprod.common.swing.LookAndFeelTweaks;
-
-import java.awt.Component;
-import java.awt.Dialog;
-import java.awt.FlowLayout;
-import java.awt.Frame;
-import java.awt.Image;
-import java.awt.Insets;
-import java.awt.KeyboardFocusManager;
-import java.awt.Window;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -39,104 +29,104 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-public class BorderEditorDialog extends BaseDialog {
+import com.l2fprod.common.swing.BaseDialog;
+import com.l2fprod.common.swing.LookAndFeelTweaks;
 
-  /**
+public class BorderEditorDialog extends BaseDialog
+{
+
+    /**
      * 
      */
     private static final long serialVersionUID = 1L;
 
-BorderEditor borderEditor;
+    BorderEditor              borderEditor;
 
-  JTextField left, right, top, bottom;
+    JTextField                left, right, top, bottom;
 
-  public BorderEditorDialog(Dialog dialog) {
-    super(dialog, true);
-    init();
-  }
+    public BorderEditorDialog(Dialog dialog) {
+        super(dialog, true);
+        init();
+    }
 
-  public BorderEditorDialog(Frame frame) {
-    super(frame, true);
-    init();
-  }
+    public BorderEditorDialog(Frame frame) {
+        super(frame, true);
+        init();
+    }
 
-  private void init() {
-    setDialogMode(BaseDialog.OK_CANCEL_DIALOG);
-    getBanner().setVisible(false);
+    private void init() {
+        setDialogMode(BaseDialog.OK_CANCEL_DIALOG);
+        getBanner().setVisible(false);
 
-    setTitle("Border Editor");
+        setTitle("Border Editor");
 
-    getContentPane().setLayout(LookAndFeelTweaks.createBorderLayout());
-    getContentPane().add("Center",
-      new JScrollPane(borderEditor = new BorderEditor()));
+        getContentPane().setLayout(LookAndFeelTweaks.createBorderLayout());
+        getContentPane().add("Center", new JScrollPane(borderEditor = new BorderEditor()));
 
-    JPanel p = new JPanel(new FlowLayout());
-    p.add(new JLabel("L:"));
-    p.add(left = new JTextField(" 0", 3));
-    p.add(new JLabel("R:"));
-    p.add(right = new JTextField(" 0", 3));
-    p.add(new JLabel("T:"));
-    p.add(top = new JTextField(" 0", 3));
-    p.add(new JLabel("B:"));
-    p.add(bottom = new JTextField(" 0", 3));
-    getContentPane().add("South", p);
+        JPanel p = new JPanel(new FlowLayout());
+        p.add(new JLabel("L:"));
+        p.add(left = new JTextField(" 0", 3));
+        p.add(new JLabel("R:"));
+        p.add(right = new JTextField(" 0", 3));
+        p.add(new JLabel("T:"));
+        p.add(top = new JTextField(" 0", 3));
+        p.add(new JLabel("B:"));
+        p.add(bottom = new JTextField(" 0", 3));
+        getContentPane().add("South", p);
 
-    p = new JPanel(LookAndFeelTweaks.createVerticalPercentLayout());
-    JButton zoomIn = new JButton("+");
-    zoomIn.addActionListener(new ActionListener() {
+        p = new JPanel(LookAndFeelTweaks.createVerticalPercentLayout());
+        JButton zoomIn = new JButton("+");
+        zoomIn.addActionListener(new ActionListener() {
 
-      public void actionPerformed(ActionEvent event) {
-        borderEditor.zoomIn();
-      }
-    });
-    JButton zoomOut = new JButton("-");
-    zoomOut.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                borderEditor.zoomIn();
+            }
+        });
+        JButton zoomOut = new JButton("-");
+        zoomOut.addActionListener(new ActionListener() {
 
-      public void actionPerformed(ActionEvent event) {
-        borderEditor.zoomOut();
-      }
-    });
-    p.add(zoomIn);
-    p.add(zoomOut);
-    getContentPane().add("East", p);
+            public void actionPerformed(ActionEvent event) {
+                borderEditor.zoomOut();
+            }
+        });
+        p.add(zoomIn);
+        p.add(zoomOut);
+        getContentPane().add("East", p);
 
-    editor().addPropertyChangeListener(BorderEditor.BORDER_KEY,
-      new PropertyChangeListener() {
+        editor().addPropertyChangeListener(BorderEditor.BORDER_KEY, new PropertyChangeListener() {
 
-        public void propertyChange(PropertyChangeEvent e) {
-          Insets insets = (Insets)e.getNewValue();
-          top.setText(insets.top + "");
-          left.setText(insets.left + "");
-          right.setText(insets.right + "");
-          bottom.setText(insets.bottom + "");
+            public void propertyChange(PropertyChangeEvent e) {
+                Insets insets = (Insets) e.getNewValue();
+                top.setText(insets.top + "");
+                left.setText(insets.left + "");
+                right.setText(insets.right + "");
+                bottom.setText(insets.bottom + "");
+            }
+        });
+    }
+
+    public BorderEditor editor() {
+        return borderEditor;
+    }
+
+    public static Insets showDialog(Insets insets, Image image) {
+        Window window = KeyboardFocusManager.getCurrentKeyboardFocusManager().getActiveWindow();
+        Component focusOwner = KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
+        BorderEditorDialog dialog;
+        if (window instanceof Dialog) {
+            dialog = new BorderEditorDialog((Dialog) window);
+        } else {
+            dialog = new BorderEditorDialog((Frame) window);
         }
-      });
-  }
-
-  public BorderEditor editor() {
-    return borderEditor;
-  }
-
-  public static Insets showDialog(Insets insets, Image image) {
-    Window window = KeyboardFocusManager.getCurrentKeyboardFocusManager()
-      .getActiveWindow();
-    Component focusOwner = KeyboardFocusManager
-      .getCurrentKeyboardFocusManager().getFocusOwner();
-    BorderEditorDialog dialog;
-    if (window instanceof Dialog) {
-      dialog = new BorderEditorDialog((Dialog)window);
-    } else {
-      dialog = new BorderEditorDialog((Frame)window);
+        dialog.editor().setBorder(insets);
+        dialog.editor().setImage(image);
+        dialog.pack();
+        dialog.setLocationRelativeTo(focusOwner);
+        if (dialog.ask()) {
+            return dialog.editor().getBorderInsets();
+        } else {
+            return null;
+        }
     }
-    dialog.editor().setBorder(insets);
-    dialog.editor().setImage(image);
-    dialog.pack();
-    dialog.setLocationRelativeTo(focusOwner);
-    if (dialog.ask()) {
-      return dialog.editor().getBorderInsets();
-    } else {
-      return null;
-    }
-  }
 
 }

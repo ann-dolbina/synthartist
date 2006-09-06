@@ -17,11 +17,6 @@
  */
 package com.l2fprod.skinbuilder;
 
-import com.l2fprod.common.application.selection.DefaultSelection;
-import com.l2fprod.common.application.selection.DefaultSelectionProvider;
-import com.l2fprod.common.application.selection.Selection;
-import com.l2fprod.common.application.selection.SelectionProvider;
-
 import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
@@ -30,36 +25,41 @@ import javax.swing.JTree;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreeSelectionModel;
 
+import com.l2fprod.common.application.selection.DefaultSelection;
+import com.l2fprod.common.application.selection.DefaultSelectionProvider;
+import com.l2fprod.common.application.selection.Selection;
+import com.l2fprod.common.application.selection.SelectionProvider;
+
 /**
  * TreePanel. <br>
  * 
  */
-public class TreePanel extends JPanel {
+public class TreePanel extends JPanel
+{
 
-  /**
+    /**
      * 
      */
     private static final long serialVersionUID = 1L;
-private JTree tree;
+    private JTree             tree;
 
-  public TreePanel(TreeModel treeModel) {
-    setLayout(new BorderLayout(0, 0));
+    public TreePanel(TreeModel treeModel) {
+        setLayout(new BorderLayout(0, 0));
 
-    tree = new JTree(treeModel);
-    JScrollPane treeScroll = new JScrollPane(tree);
-    treeScroll.setBorder(null);
-    add("Center", treeScroll);
+        tree = new JTree(treeModel);
+        JScrollPane treeScroll = new JScrollPane(tree);
+        treeScroll.setBorder(null);
+        add("Center", treeScroll);
 
-    tree.getSelectionModel().setSelectionMode(
-      TreeSelectionModel.SINGLE_TREE_SELECTION);
+        tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 
-    // update the global selection manager
-    SelectionProvider provider = new DefaultSelectionProvider(tree) {
-      public Selection getSelection() {
-        return DefaultSelection.findSelection(tree);
-      }
-    };
-    SelectionProvider.Helper.setSelectionProvider(tree, provider);
-  }
+        // update the global selection manager
+        SelectionProvider provider = new DefaultSelectionProvider(tree) {
+            public Selection getSelection() {
+                return DefaultSelection.findSelection(tree);
+            }
+        };
+        SelectionProvider.Helper.setSelectionProvider(tree, provider);
+    }
 
 }

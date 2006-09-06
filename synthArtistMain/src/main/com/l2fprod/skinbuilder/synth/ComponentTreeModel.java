@@ -55,55 +55,60 @@ import javax.swing.tree.MutableTreeNode;
  * ComponentTreeModel.<br>
  * 
  */
-public class ComponentTreeModel extends DefaultTreeModel {
+public class ComponentTreeModel extends DefaultTreeModel
+{
 
-  /**
-     * 
-     */
-    private static final long serialVersionUID = 1L;
-
-public ComponentTreeModel() {
-    super(new DefaultMutableTreeNode());
-  }
-
-  public MutableTreeNode createNamedNode(String label) {
-    return new NamedNode(label);
-  }
-
-  public MutableTreeNode createComponentNode(String label, String region) {
-    return new ComponentNode(label, region);
-  }
-
-  class NamedNode extends DefaultMutableTreeNode {
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
-    private String name;
 
-    public NamedNode(String name) {
-      this.name = name;
+    public ComponentTreeModel() {
+        super(new DefaultMutableTreeNode());
     }
-    @Override
-    public String toString() {
-      return name;
-    }
-  }
 
-  public class ComponentNode extends NamedNode {
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 1L;
-    private String region;
+    public MutableTreeNode createNamedNode(String label) {
+        return new NamedNode(label);
+    }
 
-    public ComponentNode(String label, String region) {
-      super(label);
-      this.region = region;
+    public MutableTreeNode createComponentNode(String label, String region) {
+        return new ComponentNode(label, region);
     }
-    public String getRegion() {
-      return region;
+
+    class NamedNode extends DefaultMutableTreeNode
+    {
+        /**
+         * 
+         */
+        private static final long serialVersionUID = 1L;
+        private String            name;
+
+        public NamedNode(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
     }
-  }
+
+    public class ComponentNode extends NamedNode
+    {
+        /**
+         * 
+         */
+        private static final long serialVersionUID = 1L;
+        private String            region;
+
+        public ComponentNode(String label, String region) {
+            super(label);
+            this.region = region;
+        }
+
+        public String getRegion() {
+            return region;
+        }
+    }
 
 }

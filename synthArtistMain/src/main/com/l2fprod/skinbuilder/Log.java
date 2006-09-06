@@ -19,8 +19,9 @@ package com.l2fprod.skinbuilder;
 
 import java.util.logging.Logger;
 
-public class Log {
+public class Log
+{
 
-  public static final Logger OUT = Logger.getLogger("com.l2fprod.skinbuilder");
+    public static final Logger OUT = Logger.getLogger("com.l2fprod.skinbuilder");
 
 }

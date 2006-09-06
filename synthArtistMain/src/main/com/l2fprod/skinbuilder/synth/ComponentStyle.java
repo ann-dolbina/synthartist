@@ -47,239 +47,235 @@
  */
 package com.l2fprod.skinbuilder.synth;
 
-import com.l2fprod.common.propertysheet.DefaultProperty;
-import com.l2fprod.common.propertysheet.Property;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import com.l2fprod.common.propertysheet.DefaultProperty;
+import com.l2fprod.common.propertysheet.Property;
+import com.l2fprod.skinbuilder.Log;
 
 /**
  * ComponentStyle. <br>
  * 
  */
-public class ComponentStyle implements Serializable {
+public class ComponentStyle implements Serializable
+{
 
-  /**
-   * Comment for <code>serialVersionUID</code>
-   */
-  private static final long serialVersionUID = 2264465753430164330L;
+    /**
+     * Comment for <code>serialVersionUID</code>
+     */
+    private static final long       serialVersionUID = 2264465753430164330L;
 
-  private String id;
+    private String                  id;
 
-  private List<Property> defaultProperties;
+    private List<Property>          defaultProperties;
 
-  private List<String> states;
+    private List<String>            states;
 
-  private Map<String,Property[]> stateToProperties;
+    private Map<String, Property[]> stateToProperties;
 
-  private String type;
+    private String                  type;
 
-  private String region;
+    private String                  region;
 
-  public ComponentStyle(String id, String type, String region) {
-    assert id != null : "ID must be provided";
+    public ComponentStyle(String id, String type, String region) {
+        assert id != null : "ID must be provided";
 
-    this.id = id;
-    this.type = type == null || type.length() == 0?"region":type;
-    this.region = region == null || region.length() == 0?id:region;
-    states = new ArrayList<String>();
-    defaultProperties = new ArrayList<Property>();
-    stateToProperties = new HashMap<String,Property[]>();
-  }
-
-  @Override
-public String toString() {
-    StringBuffer buffer = new StringBuffer();
-    buffer.append("id=").append(getId()).append(",changed=" + isChanged())
-      .append(" {");
-
-    for (Object element : states) {
-      String state = (String)element;
-      buffer.append("\n    state=").append(state);
-      Property[] props = getProperties(state);
-      for (Property p : props) {
-        buffer.append("\n       ").append(p.getName()).append('=').append(
-          p.getValue());
-      }
+        this.id = id;
+        this.type = type == null || type.length() == 0 ? "region" : type;
+        this.region = region == null || region.length() == 0 ? id : region;
+        states = new ArrayList<String>();
+        defaultProperties = new ArrayList<Property>();
+        stateToProperties = new HashMap<String, Property[]>();
     }
-    buffer.append("\n}");
-    return buffer.toString();
-  }
 
-  public String getId() {
-    return id;
-  }
+    @Override
+    public String toString() {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("id=").append(getId()).append(",changed=" + isChanged()).append(" {");
 
-  public String[] getStates() {
-    return states.toArray(new String[0]);
-  }
-
-  public void addState(String state) {
-    states.add(state);
-  }
-
-  public Property[] getProperties(String state) {
-    Property[] props = stateToProperties.get(state);
-    if (props == null) {
-      props = new Property[defaultProperties.size()];
-      for (int i = 0, c = props.length; i < c; i++) {
-        props[i] = (Property)((DefaultProperty)defaultProperties.get(i))
-          .clone();
-      }
-      stateToProperties.put(state, props);
-    }
-    Property[] result = new Property[props.length];
-    System.arraycopy(props, 0, result, 0, result.length);
-    return result;
-  }
-
-  /**
-   * @return true if this style differs from its default
-   */
-  public boolean isChanged() {
-    boolean changed = false;
-    for (Object element : states) {
-      String state = (String)element;
-      if (isChanged(state)) {
-        changed = true;
-        break;
-      }
-    }
-    return changed;
-  }
-
-  public boolean isChanged(String state) {
-    boolean changed = false;
-    Property[] props = stateToProperties.get(state);
-    if (props != null) {
-      // if one of the property differs from its default value,
-      // then this state has been changed
-      for (int i = 0, c = props.length; i < c; i++) {
-        Property defaultValue = defaultProperties.get(i);
-        if (props[i].getValue() != null && defaultValue != null
-          && !props[i].getValue().equals(defaultValue.getValue())) {
-          changed = true;
-          break;
+        for (Object element : states) {
+            String state = (String) element;
+            buffer.append("\n    state=").append(state);
+            Property[] props = getProperties(state);
+            for (Property p : props) {
+                buffer.append("\n       ").append(p.getName()).append('=').append(p.getValue());
+            }
         }
-      }
+        buffer.append("\n}");
+        return buffer.toString();
     }
-    return changed;
-  }
 
-  public DefaultProperty addDefaultProperty(String name, Class type) {
-    return addDefaultProperty(name, type, null, null);
-  }
-
-  public DefaultProperty addDefaultProperty(String name, Class type,
-    String displayName, String category) {
-    DefaultProperty property = new DefaultProperty();
-    property.setName(name);
-    property.setType(type);
-    property.setDisplayName(displayName);
-    property.setCategory(category);
-    defaultProperties.add(property);
-    return property;
-  }
-
-  public Object getPropertyValue(String state, String name, Class type) {
-    Property[] props = getProperties(state);
-    for (Property element : props) {
-      if (element.getName().equals(name)
-        && (type == null || element.getType().equals(type))) { return element
-        .getValue(); }
+    public String getId() {
+        return id;
     }
-    return null;
-  }
 
-  public Object findPropertyValue(String state, String name, Class type) {
-    Object value = getPropertyValue(state, name, type);
-    if (value == null) {
-      String parent = getParentState(state);
-      if (parent != null) {
-        value = findPropertyValue(parent, name, type);
-      } else if (state != null && state.length() > 0) {
-        // when there is no obvious parent state defined,
-        // build our own by removing the last state "MOUSE_OVER
-        // DEFAULT" becomes "MOUSE_OVER"
-        int lastSpace = state.lastIndexOf(" ");
-        if (lastSpace != -1) {
-          parent = state.substring(0, lastSpace);
-          value = findPropertyValue(parent, name, type);
+    public String[] getStates() {
+        return states.toArray(new String[0]);
+    }
+
+    public void addState(String state) {
+        states.add(state);
+    }
+
+    public Property[] getProperties(String state) {
+        Property[] props = stateToProperties.get(state);
+        if (props == null) {
+            props = new Property[defaultProperties.size()];
+            for (int i = 0, c = props.length; i < c; i++) {
+                props[i] = (Property) ((DefaultProperty) defaultProperties.get(i)).clone();
+            }
+            stateToProperties.put(state, props);
         }
-      }
+        Property[] result = new Property[props.length];
+        System.arraycopy(props, 0, result, 0, result.length);
+        return result;
     }
-    return value;
-  }
 
-  public String getType() {
-    return type;
-  }
-
-  public String getRegion() {
-    return region;
-  }
-
-  /**
-   * Merges two styles
-   * 
-   * @param otherStyle
-   */
-  public void mergeWith(ComponentStyle otherStyle) {
-    for (Object element : states) {
-      String state = (String)element;
-      if (otherStyle.isChanged(state)) {
-        Log.OUT.info("  need to merge " + otherStyle.getId() + "." + state);
-        Property[] thisProps = getProperties(state);
-        for (Property element0 : thisProps) {
-          element0.setValue(otherStyle.getPropertyValue(state, element0
-            .getName(), element0.getType()));
+    /**
+     * @return true if this style differs from its default
+     */
+    public boolean isChanged() {
+        boolean changed = false;
+        for (Object element : states) {
+            String state = (String) element;
+            if (isChanged(state)) {
+                changed = true;
+                break;
+            }
         }
-      }
+        return changed;
     }
-  }
 
-  static Map<String,String> stateHierarchy = new HashMap<String,String>();
-  static {
-    // for each state its parent
-    stateHierarchy.put("ENABLED", null);
-    stateHierarchy.put("DISABLED", "ENABLED");
+    public boolean isChanged(String state) {
+        boolean changed = false;
+        Property[] props = stateToProperties.get(state);
+        if (props != null) {
+            // if one of the property differs from its default value,
+            // then this state has been changed
+            for (int i = 0, c = props.length; i < c; i++) {
+                Property defaultValue = defaultProperties.get(i);
+                if (props[i].getValue() != null && defaultValue != null
+                        && !props[i].getValue().equals(defaultValue.getValue())) {
+                    changed = true;
+                    break;
+                }
+            }
+        }
+        return changed;
+    }
 
-    stateHierarchy.put("PRESSED", "ENABLED");
-    stateHierarchy.put("MOUSE_OVER", "ENABLED");
-    stateHierarchy.put("SELECTED", "ENABLED");
-    stateHierarchy.put("FOCUSED", "ENABLED");
+    public DefaultProperty addDefaultProperty(String name, Class type) {
+        return addDefaultProperty(name, type, null, null);
+    }
 
-    stateHierarchy.put("ENABLED MOUSE_OVER", "MOUSE_OVER");
-    stateHierarchy.put("ENABLED MOUSE_OVER DEFAULT", "MOUSE_OVER");
+    public DefaultProperty addDefaultProperty(String name, Class type, String displayName, String category) {
+        DefaultProperty property = new DefaultProperty();
+        property.setName(name);
+        property.setType(type);
+        property.setDisplayName(displayName);
+        property.setCategory(category);
+        defaultProperties.add(property);
+        return property;
+    }
 
-    stateHierarchy.put("ENABLED SELECTED", "SELECTED");
-    stateHierarchy.put("ENABLED SELECTED DEFAULT", "SELECTED");
+    public Object getPropertyValue(String state, String name, Class type) {
+        Property[] props = getProperties(state);
+        for (Property element : props) {
+            if (element.getName().equals(name) && (type == null || element.getType().equals(type))) {
+                return element.getValue();
+            }
+        }
+        return null;
+    }
 
-    stateHierarchy.put("ENABLED FOCUSED", "FOCUSED");
-    stateHierarchy.put("ENABLED FOCUSED DEFAULT", "FOCUSED");
+    public Object findPropertyValue(String state, String name, Class type) {
+        Object value = getPropertyValue(state, name, type);
+        if (value == null) {
+            String parent = getParentState(state);
+            if (parent != null) {
+                value = findPropertyValue(parent, name, type);
+            } else if (state != null && state.length() > 0) {
+                // when there is no obvious parent state defined,
+                // build our own by removing the last state "MOUSE_OVER
+                // DEFAULT" becomes "MOUSE_OVER"
+                int lastSpace = state.lastIndexOf(" ");
+                if (lastSpace != -1) {
+                    parent = state.substring(0, lastSpace);
+                    value = findPropertyValue(parent, name, type);
+                }
+            }
+        }
+        return value;
+    }
 
-    stateHierarchy.put("MOUSE_OVER SELECTED", "MOUSE_OVER");
-    stateHierarchy.put("MOUSE_OVER SELECTED FOCUSED", "MOUSE_OVER SELECTED");
+    public String getType() {
+        return type;
+    }
 
-    stateHierarchy.put("MOUSE_OVER FOCUSED", "MOUSE_OVER");
-    stateHierarchy.put("MOUSE_OVER FOCUSED DEFAULT", "MOUSE_OVER");
+    public String getRegion() {
+        return region;
+    }
 
-    stateHierarchy.put("PRESSED SELECTED", "PRESSED");
-    stateHierarchy.put("PRESSED SELECTED DEFAULT", "PRESSED");
+    /**
+     * Merges two styles
+     * 
+     * @param otherStyle
+     */
+    public void mergeWith(ComponentStyle otherStyle) {
+        for (Object element : states) {
+            String state = (String) element;
+            if (otherStyle.isChanged(state)) {
+                Log.OUT.info("  need to merge " + otherStyle.getId() + "." + state);
+                Property[] thisProps = getProperties(state);
+                for (Property element0 : thisProps) {
+                    element0.setValue(otherStyle.getPropertyValue(state, element0.getName(), element0.getType()));
+                }
+            }
+        }
+    }
 
-    stateHierarchy.put("PRESSED SELECTED FOCUSED", "PRESSED SELECTED");
-    stateHierarchy.put("PRESSED SELECTED FOCUSED DEFAULT", "PRESSED SELECTED");
+    static Map<String, String> stateHierarchy = new HashMap<String, String>();
+    static {
+        // for each state its parent
+        stateHierarchy.put("ENABLED", null);
+        stateHierarchy.put("DISABLED", "ENABLED");
 
-    stateHierarchy.put("PRESSED FOCUSED", "PRESSED");
-    stateHierarchy.put("PRESSED FOCUSED DEFAULT", "PRESSED");
-  }
+        stateHierarchy.put("PRESSED", "ENABLED");
+        stateHierarchy.put("MOUSE_OVER", "ENABLED");
+        stateHierarchy.put("SELECTED", "ENABLED");
+        stateHierarchy.put("FOCUSED", "ENABLED");
 
-  static String getParentState(String state) {
-    return stateHierarchy.get(state);
-  }
+        stateHierarchy.put("ENABLED MOUSE_OVER", "MOUSE_OVER");
+        stateHierarchy.put("ENABLED MOUSE_OVER DEFAULT", "MOUSE_OVER");
+
+        stateHierarchy.put("ENABLED SELECTED", "SELECTED");
+        stateHierarchy.put("ENABLED SELECTED DEFAULT", "SELECTED");
+
+        stateHierarchy.put("ENABLED FOCUSED", "FOCUSED");
+        stateHierarchy.put("ENABLED FOCUSED DEFAULT", "FOCUSED");
+
+        stateHierarchy.put("MOUSE_OVER SELECTED", "MOUSE_OVER");
+        stateHierarchy.put("MOUSE_OVER SELECTED FOCUSED", "MOUSE_OVER SELECTED");
+
+        stateHierarchy.put("MOUSE_OVER FOCUSED", "MOUSE_OVER");
+        stateHierarchy.put("MOUSE_OVER FOCUSED DEFAULT", "MOUSE_OVER");
+
+        stateHierarchy.put("PRESSED SELECTED", "PRESSED");
+        stateHierarchy.put("PRESSED SELECTED DEFAULT", "PRESSED");
+
+        stateHierarchy.put("PRESSED SELECTED FOCUSED", "PRESSED SELECTED");
+        stateHierarchy.put("PRESSED SELECTED FOCUSED DEFAULT", "PRESSED SELECTED");
+
+        stateHierarchy.put("PRESSED FOCUSED", "PRESSED");
+        stateHierarchy.put("PRESSED FOCUSED DEFAULT", "PRESSED");
+    }
+
+    static String getParentState(String state) {
+        return stateHierarchy.get(state);
+    }
 
 }

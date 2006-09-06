@@ -47,14 +47,6 @@
  */
 package com.l2fprod.skinbuilder;
 
-import com.l2fprod.common.application.Application;
-import com.l2fprod.common.application.core.AppContext;
-import com.l2fprod.common.application.core.DefaultAppContext;
-import com.l2fprod.common.swing.IconPool;
-import com.l2fprod.common.swing.LookAndFeelTweaks;
-import com.l2fprod.common.swing.UserPreferences;
-import com.l2fprod.skinbuilder.synth.SynthConfig;
-
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -69,104 +61,110 @@ import javax.swing.UIManager;
 import com.jgoodies.looks.plastic.Plastic3DLookAndFeel;
 import com.jgoodies.uif_lite.component.Factory;
 import com.jgoodies.uif_lite.panel.SimpleInternalFrame;
+import com.l2fprod.common.application.Application;
+import com.l2fprod.common.application.core.AppContext;
+import com.l2fprod.common.application.core.DefaultAppContext;
+import com.l2fprod.common.swing.IconPool;
+import com.l2fprod.common.swing.LookAndFeelTweaks;
+import com.l2fprod.common.swing.UserPreferences;
+import com.l2fprod.skinbuilder.synth.SynthConfig;
 
 /**
  * Main. <br>
  * 
  */
-public class Main extends Application {
+public class Main extends Application
+{
 
-  /**
+    /**
      * 
      */
     private static final long serialVersionUID = 1L;
 
-public Main() {
-    setName("SynthBuilder");
-    setTitle("SynthBuilder EXPERIMENTAL WORK");
-  }
+    public Main() {
+        setName("SynthBuilder");
+        setTitle("SynthBuilder EXPERIMENTAL WORK");
+    }
 
-  @Override
-public void initialize(AppContext context) {
-    super.initialize(context);
-    buildUI();
-  }
+    @Override
+    public void initialize(AppContext context) {
+        super.initialize(context);
+        buildUI();
+    }
 
-  private void buildUI() {
-    defaultUIInit();
+    private void buildUI() {
+        defaultUIInit();
 
-    SynthConfig config = new SynthConfig();
-    getContext().registerService(SynthConfig.class, config);
+        SynthConfig config = new SynthConfig();
+        getContext().registerService(SynthConfig.class, config);
 
-    //
-    // COMPONENT TREE
-    //
-    TreePanel tree = new TreePanel(config.getComponentTreeModel());
-    tree.setPreferredSize(new Dimension(200, 100));
-    SimpleInternalFrame treeView = new SimpleInternalFrame("Explorer");
-    treeView.setContent(tree);
+        //
+        // COMPONENT TREE
+        //
+        TreePanel tree = new TreePanel(config.getComponentTreeModel());
+        tree.setPreferredSize(new Dimension(200, 100));
+        SimpleInternalFrame treeView = new SimpleInternalFrame("Explorer");
+        treeView.setContent(tree);
 
-    //
-    // PROPERTY SHEET
-    //
-    StyleSheetPanel sheet = new StyleSheetPanel();
-    sheet.contextualize(getContext());
-    SimpleInternalFrame sheetView = new SimpleInternalFrame("Properties");
-    sheetView.setContent(sheet);
+        //
+        // PROPERTY SHEET
+        //
+        StyleSheetPanel sheet = new StyleSheetPanel();
+        sheet.contextualize(getContext());
+        SimpleInternalFrame sheetView = new SimpleInternalFrame("Properties");
+        sheetView.setContent(sheet);
 
-    //
-    // PREVIEW PANEL
-    //
-    final PreviewPanel preview = new PreviewPanel();
-    Icon icon = IconPool.shared().get("icons/reload.png");
-    Action updatePreviewAction = new AbstractAction("update", icon) {
-      /**
-         * 
-         */
-        private static final long serialVersionUID = 1L;
+        //
+        // PREVIEW PANEL
+        //
+        final PreviewPanel preview = new PreviewPanel();
+        Icon icon = IconPool.shared().get("icons/reload.png");
+        Action updatePreviewAction = new AbstractAction("update", icon) {
+            /**
+             * 
+             */
+            private static final long serialVersionUID = 1L;
 
-    public void actionPerformed(ActionEvent e) {
-        preview.setSynthLookAndFeel();
-      }
-    };
-    preview.setSynthLookAndFeel(config);
-    JToolBar tb = new JToolBar();
-    tb.setRollover(true);
-    tb.add(updatePreviewAction);
-    SimpleInternalFrame previewView = new SimpleInternalFrame("Preview", tb,
-      preview);
+            public void actionPerformed(ActionEvent e) {
+                preview.setSynthLookAndFeel();
+            }
+        };
+        preview.setSynthLookAndFeel(config);
+        JToolBar tb = new JToolBar();
+        tb.setRollover(true);
+        tb.add(updatePreviewAction);
+        SimpleInternalFrame previewView = new SimpleInternalFrame("Preview", tb, preview);
 
-    JSplitPane leftSplit = Factory.createStrippedSplitPane(
-      JSplitPane.VERTICAL_SPLIT, treeView, sheetView, 0);
-    leftSplit.setDividerLocation(200);
+        JSplitPane leftSplit = Factory.createStrippedSplitPane(JSplitPane.VERTICAL_SPLIT, treeView, sheetView, 0);
+        leftSplit.setDividerLocation(200);
 
-    JSplitPane mainSplit = Factory.createStrippedSplitPane(
-      JSplitPane.HORIZONTAL_SPLIT, leftSplit, previewView, 0);
-    mainSplit.setDividerLocation(200);
+        JSplitPane mainSplit = Factory.createStrippedSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftSplit, previewView, 0);
+        mainSplit.setDividerLocation(200);
 
-    getContentPane().add("Center", mainSplit);
-    mainSplit.setBorder(LookAndFeelTweaks.PANEL_BORDER);
-  }
+        getContentPane().add("Center", mainSplit);
+        mainSplit.setBorder(LookAndFeelTweaks.PANEL_BORDER);
+    }
 
-  public static void main(String[] args) throws Exception {
-    EventQueue.invokeLater(new Runnable() {
-      public void run() {
-        try {
-          UIManager.put("swing.boldMetal", Boolean.FALSE);
-          UIManager.put("ToolBar.isRollover", Boolean.TRUE);
-          UIManager.setLookAndFeel(new Plastic3DLookAndFeel());
-        } catch (Exception e) {}
-        LookAndFeelTweaks.tweak();
+    public static void main(String[] args) throws Exception {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    UIManager.put("swing.boldMetal", Boolean.FALSE);
+                    UIManager.put("ToolBar.isRollover", Boolean.TRUE);
+                    UIManager.setLookAndFeel(new Plastic3DLookAndFeel());
+                } catch (Exception e) {
+                }
+                LookAndFeelTweaks.tweak();
 
-        DefaultAppContext context = new DefaultAppContext();
-        Main main = new Main();
-        main.initialize(context);
-        main.setSize(800, 600);
-        main.setLocationRelativeTo(null);
-        UserPreferences.track(main);
-        main.setVisible(true);
-      }
+                DefaultAppContext context = new DefaultAppContext();
+                Main main = new Main();
+                main.initialize(context);
+                main.setSize(800, 600);
+                main.setLocationRelativeTo(null);
+                UserPreferences.track(main);
+                main.setVisible(true);
+            }
 
-    });
-  }
+        });
+    }
 }

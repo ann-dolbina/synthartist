@@ -17,46 +17,47 @@
  */
 package javax.swing.plaf.synth;
 
-import com.l2fprod.skinbuilder.Log;
-
 import javax.swing.JComponent;
 import javax.swing.UIDefaults;
 import javax.swing.plaf.ComponentUI;
+
+import com.l2fprod.skinbuilder.Log;
 
 /**
  * APatchedSynthLookAndFeel. <br>
  * 
  */
-public class APatchedSynthLookAndFeel extends SynthLookAndFeel {
+public class APatchedSynthLookAndFeel extends SynthLookAndFeel
+{
 
-  /**
+    /**
      * 
      */
     private static final long serialVersionUID = 1L;
 
-@Override
-public UIDefaults getDefaults() {
-    UIDefaults defaults = super.getDefaults();
-    defaults.put("InternalFrameUI", APatchedSynthLookAndFeel.class.getName());
-    return defaults;
-  }
-
-  public static ComponentUI createUI(JComponent c) {
-    String key = c.getUIClassID().intern();
-    Log.OUT.info("createUI(" + key + ")");
-    try {
-      if (key == "InternalFrameUI") {
-        return APatchedSynthInternalFrameUI.createUI(c);
-      } else {
-        return SynthLookAndFeel.createUI(c);
-      }
-    } catch (RuntimeException e) {
-      e.printStackTrace();
-      throw e;
-    } catch (Error e) {
-      e.printStackTrace();
-      throw e;
+    @Override
+    public UIDefaults getDefaults() {
+        UIDefaults defaults = super.getDefaults();
+        defaults.put("InternalFrameUI", APatchedSynthLookAndFeel.class.getName());
+        return defaults;
     }
-  }
+
+    public static ComponentUI createUI(JComponent c) {
+        String key = c.getUIClassID().intern();
+        Log.OUT.info("createUI(" + key + ")");
+        try {
+            if (key == "InternalFrameUI") {
+                return APatchedSynthInternalFrameUI.createUI(c);
+            } else {
+                return SynthLookAndFeel.createUI(c);
+            }
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            throw e;
+        } catch (Error e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
 
 }
